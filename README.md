@@ -168,3 +168,384 @@ SELECT TOP 3 * FROM Customers;
 Example
 SELECT * FROM Customers
 LIMIT 3;
+
+The SQL MIN() and MAX() Functions
+The MIN() function returns the smallest value of the selected column.
+
+The MAX() function returns the largest value of the selected column.
+
+MIN() Syntax
+SELECT MIN(column_name)
+FROM table_name
+WHERE condition;
+
+MAX() Syntax
+SELECT MAX(column_name)
+FROM table_name
+WHERE condition;
+
+EXAMPLE
+SELECT MIN(Price) AS SmallestPrice
+FROM Products;
+
+EXAMPLE
+SELECT MAX(Price) AS LargestPrice
+FROM Products;
+
+The SQL COUNT(), AVG() and SUM() Functions
+The COUNT() function returns the number of rows that matches a specified criterion.
+
+COUNT() Syntax
+SELECT COUNT(column_name)
+FROM table_name
+WHERE condition;
+The AVG() function returns the average value of a numeric column. 
+
+SELECT COUNT(ProductID)
+FROM Products;
+
+
+AVG() Syntax
+SELECT AVG(column_name)
+FROM table_name
+WHERE condition;
+The SUM() function returns the total sum of a numeric column. 
+
+SELECT AVG(Price)
+FROM Products;
+
+
+SUM() Syntax
+SELECT SUM(column_name)
+FROM table_name
+WHERE condition;
+
+SELECT SUM(Quantity)
+FROM OrderDetails;
+
+The SQL LIKE Operator
+The LIKE operator is used in a WHERE clause to search for a specified pattern in a column.
+
+There are two wildcards often used in conjunction with the LIKE operator:
+
+ The percent sign (%) represents zero, one, or multiple characters
+ The underscore sign (_) represents one, single character
+
+ LIKE Syntax
+SELECT column1, column2, ...
+FROM table_name
+WHERE columnN LIKE pattern;
+
+LIKE Operator	Description
+WHERE CustomerName LIKE 'a%'	Finds any values that start with "a"
+WHERE CustomerName LIKE '%a'	Finds any values that end with "a"
+WHERE CustomerName LIKE '%or%'	Finds any values that have "or" in any position
+WHERE CustomerName LIKE '_r%'	Finds any values that have "r" in the second position
+WHERE CustomerName LIKE 'a_%'	Finds any values that start with "a" and are at least 2 characters in length
+WHERE CustomerName LIKE 'a__%'	Finds any values that start with "a" and are at least 3 characters in length
+WHERE ContactName LIKE 'a%o'	Finds any values that start with "a" and ends with "o"
+
+SQL Wildcard Characters
+A wildcard character is used to substitute one or more characters in a string.
+
+Wildcard characters are used with the LIKE operator. The LIKE operator is used in a WHERE clause to search for a specified pattern in a column.
+
+Wildcard Characters in MS Access
+Symbol	Description	Example
+*	Represents zero or more characters	bl* finds bl, black, blue, and blob
+?	Represents a single character	h?t finds hot, hat, and hit
+[]	Represents any single character within the brackets	h[oa]t finds hot and hat, but not hit
+!	Represents any character not in the brackets	h[!oa]t finds hit, but not hot and hat
+-	Represents any single character within the specified range	c[a-b]t finds cat and cbt
+#	Represents any single numeric character	2#5 finds 205, 215, 225, 235, 245, 255, 265, 275, 285, and 295
+
+The following SQL statement selects all customers with a City starting with "ber":
+
+ExampleGet your own SQL Server
+SELECT * FROM Customers
+WHERE City LIKE 'ber%';
+The following SQL statement selects all customers with a City containing the pattern "es": 
+
+Example
+SELECT * FROM Customers
+WHERE City LIKE '%es%';
+Using the _ Wildcard
+The following SQL statement selects all customers with a City starting with any character, followed by "ondon":
+
+Example
+SELECT * FROM Customers
+WHERE City LIKE '_ondon';
+The following SQL statement selects all customers with a City starting with "L", followed by any character, followed by "n", followed by any character, followed by "on":
+
+Example
+SELECT * FROM Customers
+WHERE City LIKE 'L_n_on';
+
+The SQL IN Operator
+The IN operator allows you to specify multiple values in a WHERE clause.
+
+The IN operator is a shorthand for multiple OR conditions.
+
+IN Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE column_name IN (value1, value2, ...);
+
+The following SQL statement selects all customers that are located in "Germany", "France" or "UK":
+
+ExampleGet your own SQL Server
+SELECT * FROM Customers
+WHERE Country IN ('Germany', 'France', 'UK');
+The following SQL statement selects all customers that are NOT located in "Germany", "France" or "UK":
+
+Example
+SELECT * FROM Customers
+WHERE Country NOT IN ('Germany', 'France', 'UK');
+The following SQL statement selects all customers that are from the same countries as the suppliers:
+
+Example
+SELECT * FROM Customers
+WHERE Country IN (SELECT Country FROM Suppliers);
+
+The SQL BETWEEN Operator
+The BETWEEN operator selects values within a given range. The values can be numbers, text, or dates.
+
+The BETWEEN operator is inclusive: begin and end values are included. 
+
+BETWEEN Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+
+The following SQL statement selects all products with a price between 10 and 20:
+
+ExampleGet your own SQL Server
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20;
+The following SQL statement selects all products with a price between 10 and 20:
+
+Example Get your own SQL Server
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20;
+
+NOT BETWEEN Example
+To display the products outside the range of the previous example, use NOT BETWEEN:
+
+Example
+SELECT * FROM Products
+WHERE Price NOT BETWEEN 10 AND 20;
+
+The following SQL statement selects all products with a price between 10 and 20. In addition; do not show products with a CategoryID of 1,2, or 3:
+
+Example
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20
+AND CategoryID NOT IN (1,2,3);
+
+
+SQL Aliases
+SQL aliases are used to give a table, or a column in a table, a temporary name.
+
+Aliases are often used to make column names more readable.
+
+An alias only exists for the duration of that query.
+
+An alias is created with the AS keyword.
+
+Alias Column Syntax
+SELECT column_name AS alias_name
+FROM table_name;
+Alias Table Syntax
+SELECT column_name(s)
+FROM table_name AS alias_name;
+
+The following SQL statement creates an alias named "Address" that combine four columns (Address, PostalCode, City and Country):
+
+Example
+SELECT CustomerName, Address + ', ' + PostalCode + ' ' + City + ', ' + Country AS Address
+FROM Customers;
+Note: To get the SQL statement above to work in MySQL use the following:
+
+SELECT CustomerName, CONCAT(Address,', ',PostalCode,', ',City,', ',Country) AS Address
+FROM Customers;
+
+SQL JOIN
+A JOIN clause is used to combine rows from two or more tables, based on a related column between them.
+
+Let's look at a selection from the "Orders" table:
+
+OrderID	CustomerID	OrderDate
+10308	    2	        1996-09-18
+10309    	37       	1996-09-19
+10310    	77	        1996-09-20
+Then, look at a selection from the "Customers" table:
+
+CustomerID	   CustomerName	                       ContactName	                   Country
+1	         Alfreds Futterkiste    	             Maria Anders	                    Germany
+2	         Ana Trujillo Emparedados y helados    Ana Trujillo                    Mexico
+3	         Antonio MorenoTaquería             	Antonio Moreno                       	Mexico
+
+
+Example Get your own SQL Server
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+Different Types of SQL JOINs
+
+(INNER) JOIN: Returns records that have matching values in both tables
+LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table
+RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table
+FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table
+SQL INNER JOIN  SQL LEFT JOIN  SQL RIGHT JOIN  SQL FULL OUTER JOIN
+
+
+INNER JOIN Syntax
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+
+Example Get your own SQL Server
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+
+LEFT JOIN Syntax
+SELECT column_name(s)
+FROM table1
+LEFT JOIN table2
+ON table1.column_name = table2.column_name;
+
+ExampleGet your own SQL Server
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+RIGHT JOIN Syntax
+SELECT column_name(s)
+FROM table1
+RIGHT JOIN table2
+ON table1.column_name = table2.column_name;
+
+ExampleGet your own SQL Server
+SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
+FROM Orders
+RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID;
+
+FULL OUTER JOIN Syntax
+SELECT column_name(s)
+FROM table1
+FULL OUTER JOIN table2
+ON table1.column_name = table2.column_name
+WHERE condition;
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+FULL OUTER JOIN Orders ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+Self Join Syntax
+SELECT column_name(s)
+FROM table1 T1, table1 T2
+WHERE condition;
+
+SQL Self Join Example
+The following SQL statement matches customers that are from the same city:
+
+ExampleGet your own SQL Server
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City
+ORDER BY A.City;
+
+
+The SQL UNION Operator
+The UNION operator is used to combine the result-set of two or more SELECT statements.
+
+Every SELECT statement within UNION must have the same number of columns
+The columns must also have similar data types
+The columns in every SELECT statement must also be in the same order
+UNION Syntax
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+UNION ALL Syntax
+The UNION operator selects only distinct values by default. To allow duplicate values, use UNION ALL:
+
+SELECT column_name(s) FROM table1
+UNION ALL
+SELECT column_name(s) FROM table2;
+
+SELECT City FROM Customers
+UNION ALL
+SELECT City FROM Suppliers
+ORDER BY City;
+
+The SQL GROUP BY Statement
+The GROUP BY statement groups rows that have the same values into summary rows, like "find the number of customers in each country".
+
+The GROUP BY statement is often used with aggregate functions (COUNT(), MAX(), MIN(), SUM(), AVG()) to group the result-set by one or more columns.
+
+GROUP BY Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+ORDER BY column_name(s);
+
+SQL GROUP BY Examples
+The following SQL statement lists the number of customers in each country:
+
+ExampleGet your own SQL Server
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country;
+
+Example
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+
+GROUP BY With JOIN Example
+The following SQL statement lists the number of orders sent by each shipper:
+
+Example
+SELECT Shippers.ShipperName, COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders
+LEFT JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID
+GROUP BY ShipperName;
+
+The SQL HAVING Clause
+The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.
+
+HAVING Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+HAVING condition
+ORDER BY column_name(s);
+
+SQL HAVING Examples
+The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:
+
+ExampleGet your own SQL Server
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5;
+
+
+More HAVING Examples
+The following SQL statement lists the employees that have registered more than 10 orders:
+
+Example
+SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders
+FROM (Orders
+INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID)
+GROUP BY LastName
+HAVING COUNT(Orders.OrderID) > 10;
