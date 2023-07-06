@@ -549,3 +549,51 @@ FROM (Orders
 INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID)
 GROUP BY LastName
 HAVING COUNT(Orders.OrderID) > 10;
+
+The SQL EXISTS Operator
+The EXISTS operator is used to test for the existence of any record in a subquery.
+
+The EXISTS operator returns TRUE if the subquery returns one or more records.
+
+EXISTS Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE EXISTS
+(SELECT column_name FROM table_name WHERE condition);
+
+SQL EXISTS Examples
+The following SQL statement returns TRUE and lists the suppliers with a product price less than 20:
+
+ExampleGet your own SQL Server
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price < 20);
+
+The SQL ANY and ALL Operators
+The ANY and ALL operators allow you to perform a comparison between a single column value and a range of other values.
+
+The SQL ANY Operator
+The ANY operator:
+
+returns a boolean value as a result
+returns TRUE if ANY of the subquery values meet the condition
+ANY means that the condition will be true if the operation is true for any of the values in the range.
+
+ANY Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ANY
+  (SELECT column_name
+  FROM table_name
+  WHERE condition);
+
+The SQL SELECT INTO Statement
+The SELECT INTO statement copies data from one table into a new table.
+
+SELECT INTO Syntax
+Copy all columns into a new table:
+
+SELECT *
+INTO newtable [inexternal]
+FROM oldtable
+WHERE condition;
