@@ -13,6 +13,54 @@ SQL can create stored procedures in a database
 SQL can create views in a database
 SQL can set permissions on tables, procedures, and views
 
+SQL uses:
+• Data definition: It is used to define the structure and organization of the
+stored data and relationships among the stored data items.
+• Data retrieval: SQL can also be used for data retrieval.
+• Data manipulation: If the user wants to add new data, remove data, or modifying in
+existing data then SQL provides this facility also.
+• Access control: SQL can be used to restrict a user’s ability to retrieve, add, and
+modify data, protecting stored data against unauthorized access.
+• Data sharing: SQL is used to coordinate data sharing by concurrent users, ensuring
+that changes made by one user do not inadvertently wipe out changes made at
+nearly the same time by another user.
+SQL also differs from other computer languages because it describes what the
+user wants the computer to do rather than how the computer should do it. (In more
+technical terms, SQL is a declarative or descriptive language rather than a
+procedural one.) SQL contains no IF statement for testing conditions, and no GOTO,
+DO, or FOR statements for program flow control. Rather, SQL statements describe
+how a collection of data is to be organized, or what data is to be retrieved or added
+to the database. The sequence of steps to do those tasks is left for the DBMS to
+determine.
+
+
+Features of SQL:
+• SQL may be utilized by quite a number of users, which include people with very
+little programming experience.
+• SQL is a Non-procedural language.pg. 3 | HIMANSHU KUMAR(LINKEDIN)
+• We can without difficulty create and replace databases in SQL. It isn't a timeconsuming process.
+• SQL is primarily based totally on ANSI standards.
+• SQL does now no longer have a continuation individual.
+• SQL is entered into SQL buffer on one or extra lines.
+• SQL makes use of a termination individual to execute instructions immediately.
+It makes use of features to carry out a few formatting.
+• It uses functions to perform some formatting.
+
+
+Rules for SQL:
+• A ';' is used to end SQL statements.
+• Statements may be split across lines but keywords may not.
+• Identifiers, operator names, literals are separated by one or more spaces or other
+delimiters.
+• A comma(,) separates parameters without a clause.
+• A space separates a clause.
+• Reserved words can not be used as identifiers unless enclosed with double quotes.
+• Identifiers can contain up to 30 characters.
+• Identifiers must start with an alphabetic character.
+• Characters and date literals must be enclosed within single quotes.
+• Numeric literals can be represented by simple values.
+• Comments may be enclosed between /* and */ symbols and may
+
 RDBMS
 RDBMS stands for Relational Database Management System.
 
