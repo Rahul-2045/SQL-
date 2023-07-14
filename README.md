@@ -645,3 +645,5 @@ SELECT *
 INTO newtable [inexternal]
 FROM oldtable
 WHERE condition;
+
+SELECT 
