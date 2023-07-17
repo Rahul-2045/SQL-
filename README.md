@@ -16,14 +16,19 @@ SQL can set permissions on tables, procedures, and views
 SQL uses:
 • Data definition: It is used to define the structure and organization of the
 stored data and relationships among the stored data items.
+
 • Data retrieval: SQL can also be used for data retrieval.
+
 • Data manipulation: If the user wants to add new data, remove data, or modifying in
 existing data then SQL provides this facility also.
+
 • Access control: SQL can be used to restrict a user’s ability to retrieve, add, and
 modify data, protecting stored data against unauthorized access.
+
 • Data sharing: SQL is used to coordinate data sharing by concurrent users, ensuring
 that changes made by one user do not inadvertently wipe out changes made at
 nearly the same time by another user.
+
 SQL also differs from other computer languages because it describes what the
 user wants the computer to do rather than how the computer should do it. (In more
 technical terms, SQL is a declarative or descriptive language rather than a
@@ -66,6 +71,11 @@ RDBMS stands for Relational Database Management System.
 
 Database Tables
 A database most often contains one or more tables. Each table is identified by a name (e.g. "Customers" or "Orders"). Tables contain records (rows) with data.
+
+What is a table?
+
+A table is a set of data values. These values are organized using vertical columns and horizontal rows. Columns are identified by their names.
+
 
 The SQL SELECT Statement
 The SELECT statement is used to select data from a database.
@@ -646,4 +656,82 @@ INTO newtable [inexternal]
 FROM oldtable
 WHERE condition;
 
+windows function
+
+In SQL, window functions are used to perform calculations across a set of rows in a query result. They operate on a "window" of rows defined by a specific partition and order. Here are explanations of some commonly used window functions:
+
+ROW_NUMBER(): Assigns a unique sequential number to each row in the result set based on the specified ordering. The numbering starts from 1 for the first row and increments by 1 for each subsequent row.
+
+RANK(): Assigns a rank to each row based on the ordering. Rows with the same values receive the same rank, and the next rank is skipped. For example, if two rows have the same values and receive rank 2, the next rank assigned will be 4.
+
+DENSE_RANK(): Similar to RANK(), but without skipping ranks for tied values. Rows with the same values receive the same rank, and the next rank is not skipped. For example, if two rows have the same values and receive rank 2, the next rank assigned will be 3.
+
+NTILE(n): Divides the rows into approximately equal-sized buckets (tiles), where 'n' represents the number of buckets. Each row is assigned a bucket number, starting from 1 up to 'n'. If the total number of rows is not divisible by 'n', some buckets may have slightly more or fewer rows.
+
+LAG(column, offset): Retrieves the value of the specified column from the previous row based on the specified offset. The offset represents the number of rows to go back. If the offset is 1, it retrieves the value from the previous row; if it is 2, it retrieves the value from two rows back, and so on.
+
+LEAD(column, offset): Retrieves the value of the specified column from the next row based on the specified offset. The offset represents the number of rows to go forward. If the offset is 1, it retrieves the value from the next row; if it is 2, it retrieves the value from two rows ahead, and so on.
+
+These are just a few examples of window functions in SQL. Window functions provide powerful capabilities to perform calculations and analyze data within specific partitions and orderings, allowing for more advanced analytical queries. The specific functions and syntax may vary slightly depending on the database system you are using, so it's recommended to consult the documentation of your specific database for more details.
+
+
+ Here are examples of SQL window functions along with sample questions and answers:
+
+ROW_NUMBER():
+sql
 SELECT 
+    ROW_NUMBER() OVER (ORDER BY Sales DESC) AS Rank,
+    ProductName,
+    Sales
+FROM
+    Products
+    
+Question: Retrieve the product name, sales, and their ranks based on descending order of sales.
+
+Answer:
+
+mathematics
+Copy code
+Rank | ProductName    | Sales
+-----------------------------
+1    | Product A      | 1000
+2    | Product B      | 800
+3    | Product C      | 600
+RANK():
+sql
+SELECT 
+    RANK() OVER (ORDER BY Sales DESC) AS Rank,
+    ProductName,
+    Sales
+FROM
+    Products
+    
+Question: Retrieve the product name, sales, and their ranks based on descending order of sales.
+
+Answer:
+
+mathematica
+Rank | ProductName    | Sales
+-----------------------------
+1    | Product A      | 1000
+2    | Product B      | 800
+2    | Product C      | 800
+DENSE_RANK():
+sql
+SELECT 
+    DENSE_RANK() OVER (ORDER BY Category) AS Rank,
+    ProductName,
+    Category
+FROM
+    Products
+    
+Question: Retrieve the product name, category, and their ranks based on category.
+
+Answer:
+
+mathematica
+Rank | ProductName    | Category
+-------------------------------
+1    | Product A      | Electronics
+1    | Product B      | Electronics
+2    | Product C      | Fashion
